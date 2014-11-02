@@ -46,7 +46,7 @@ class maps_widget extends WidgetHandler
 	{
 		$this->langtype = str_replace($this->xe_langtype, $this->google_langtype, strtolower(Context::getLangType()));
 
-		// API Á¾·ù Á¤ÇÏ±â ´ÙÀ½/³×ÀÌ¹ö/±¸±Û
+		// API ì¢…ë¥˜ ì •í•˜ê¸° ë‹¤ìŒ/ë„¤ì´ë²„/êµ¬ê¸€
 		$oMapsModel = getModel('maps');
 		$maps_config = $oMapsModel->getMapsConfig();
 		if(!$maps_config->maps_api_type)
@@ -58,13 +58,13 @@ class maps_widget extends WidgetHandler
 		$args = new stdClass();
 		$args->maps_srl = intval($widget_info->maps_srl);
 
-		// Á¤¼öÇüÀÌ°í, °ªÀÌ Á¸ÀçÇÒ °æ¿ì ½ÇÁ¦ Á¸ÀçÇÏ´Â ÁöµµÀÎÁö È®ÀÎ(¾÷µ¥ÀÌÆ® ³¯Â¥°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ)
+		// ì •ìˆ˜í˜•ì´ê³ , ê°’ì´ ì¡´ì¬í•  ê²½ìš° ì‹¤ì œ ì¡´ì¬í•˜ëŠ” ì§€ë„ì¸ì§€ í™•ì¸(ì—…ë°ì´íŠ¸ ë‚ ì§œê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸)
 		if($args->maps_srl > 0)
 		{
 			$output = executeQuery('maps.getMapUpdate', $args);
 		}
 
-		// Á¸ÀçÇÏ´Â ÁöµµÀÏ °æ¿ì, Áöµµ µ¥ÀÌÅÍ °¡Á®¿È
+		// ì¡´ì¬í•˜ëŠ” ì§€ë„ì¼ ê²½ìš°, ì§€ë„ ë°ì´í„° ê°€ì ¸ì˜´
 		if($output->data->update)
 		{
 			$output = executeQuery('maps.getMapbySrl', $args);
@@ -98,7 +98,7 @@ class maps_widget extends WidgetHandler
 			Context::set('map_width_unit', 'px');
 		}
 
-		//ÇÑ ÆäÀÌÁö ³»¿¡ Áöµµ ¼ö
+		//í•œ í˜ì´ì§€ ë‚´ì— ì§€ë„ ìˆ˜
 		$map_count = Context::get('widget_maps_count');
 		if(!$map_count) {
 			$map_count=1;
@@ -123,7 +123,7 @@ class maps_widget extends WidgetHandler
 			}
 			else
 			{
-				$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$this->langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="ÀÌµ¿"] {opacity: 0 !important;}span.soo_maps {display:block;} span.soo_maps img {max-width:none;}span.soo_maps>a>img {max-width:100%;}</style>'."\n";
+				$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$this->langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="ì´ë™"] {opacity: 0 !important;}span.soo_maps {display:block;} span.soo_maps img {max-width:none;}span.soo_maps>a>img {max-width:100%;}</style>'."\n";
 			}
 		}
 
