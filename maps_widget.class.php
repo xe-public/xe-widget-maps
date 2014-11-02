@@ -44,6 +44,7 @@ class maps_widget extends WidgetHandler
 	 */
 	function proc($widget_info)
 	{
+		Context::loadFile(array('./common/js/jquery.js', 'head', 'gte IE 9', -110000), true);
 		$this->langtype = str_replace($this->xe_langtype, $this->google_langtype, strtolower(Context::getLangType()));
 
 		// API 종류 정하기 다음/네이버/구글
@@ -89,6 +90,14 @@ class maps_widget extends WidgetHandler
 		Context::set('colorset', $widget_info->colorset);
 		Context::set('map_width', intval($widget_info->map_width));
 		Context::set('map_height', intval($widget_info->map_height));
+		if(in_array($widget_info->map_draggable, array('true','false')))
+		{
+			Context::set('map_draggable', $widget_info->map_draggable);
+		}
+		else
+		{
+			Context::set('map_draggable', 'true');
+		}
 		if(in_array($widget_info->map_width_unit, array('%','px')))
 		{
 			Context::set('map_width_unit', $widget_info->map_width_unit);
@@ -111,19 +120,19 @@ class maps_widget extends WidgetHandler
 		if($map_count==1) {
 			if($maps_config->maps_api_type == 'daum')
 			{
-				$header_script .= '<script src="https://apis.daum.net/maps/maps3.js?apikey='.$maps_config->map_api_key.'"></script><style type="text/css">span.soo_maps {display:block;} span.soo_maps img {max-width:none;}span.soo_maps>a>img {max-width:100%;}</style>'."\n";
+				$header_script .= '<script src="https://apis.daum.net/maps/maps3.js?apikey='.$maps_config->map_api_key.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
 			}
 			elseif($maps_config->maps_api_type == 'naver')
 			{
-				$header_script .= '<script src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&amp;key='.$maps_config->map_api_key.'"></script><style type="text/css">span.soo_maps {display:block;} span.soo_maps img {max-width:none;}span.soo_maps>a>img {max-width:100%;}</style>'."\n";
+				$header_script .= '<script src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&amp;key='.$maps_config->map_api_key.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
 			}
 			elseif($maps_config->maps_api_type == 'microsoft')
 			{
-				$header_script .= '<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script><style type="text/css">span.soo_maps {display:block;} span.soo_maps img {max-width:none;}span.soo_maps>a>img {max-width:100%;}</style>'."\n";
+				$header_script .= '<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
 			}
 			else
 			{
-				$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$this->langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="이동"] {opacity: 0 !important;}span.soo_maps {display:block;} span.soo_maps img {max-width:none;}span.soo_maps>a>img {max-width:100%;}</style>'."\n";
+				$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$this->langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="이동"] {opacity: 0 !important;}div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:100%;}</style>'."\n";
 			}
 		}
 
