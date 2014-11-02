@@ -136,7 +136,7 @@ class maps_widget extends WidgetHandler
 			}
 		}
 
-		Context::addHtmlHeader($header_script);
+		Context::set('header_script' , $header_script);
 
 		// Compile a template
 		$oTemplate = &TemplateHandler::getInstance();
