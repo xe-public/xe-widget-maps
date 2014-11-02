@@ -1,0 +1,14 @@
+<!--@if($maps_api_type == 'daum')-->
+	<load target="./js/daum_maps.js" />
+<!--@elseif($maps_api_type == 'naver')-->
+	<load target="./js/naver_maps.js" />
+<!--@elseif($maps_api_type == 'microsoft')-->
+	<load target="./js/microsoft_maps.js" />
+<!--@else-->
+	<load target="./js/google_maps.js" />
+<!--@end-->
+<div id="maps_widget_{$widget_maps_count}" style="display:block;height:{$map_height}px; width:{$map_width}{$map_width_unit};">
+</div>
+<script>
+	jQuery(document).ready(function() { getMapWidget("maps_widget_{$widget_maps_count}", "{$map_center}", "{$map_markers}", "{$map_zoom}") });;
+</script>
