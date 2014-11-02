@@ -1,3 +1,10 @@
+/* Copyright (C) Kim, MinSoo <misol.kr@gmail.com> */
+/*
+ * @file	js/google_maps.js
+ * @author	MinSoo Kim (misol.kr@gmail.com)
+ * @brief	javascript for viewing google map.
+ * @see		지도 위젯의 열람용 자바스크립트
+ */
 function addMarker(target_map, map_marker_positions) {
 	positions = makeLocationArray(map_marker_positions);
 

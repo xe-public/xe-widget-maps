@@ -1,3 +1,10 @@
+/* Copyright (C) Kim, MinSoo <misol.kr@gmail.com> */
+/*
+ * @file	js/naver_maps.js
+ * @author	MinSoo Kim (misol.kr@gmail.com)
+ * @brief	javascript for viewing naver map.
+ * @see		지도 위젯의 열람용 자바스크립트
+ */
 function addMarker(target_map, map_marker_positions) {
 	positions = makeLocationArray(map_marker_positions);
 	var oSize = new nhn.api.map.Size(28, 37);
