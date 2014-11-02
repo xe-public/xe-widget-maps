@@ -24,10 +24,19 @@ function makeLocationArray(str_position) {
 	return arr_positons;
 }
 
-function getMapWidget(map_id, map_center, map_markers, map_zoom) {
+function getMapWidget(map_id, map_center, map_markers, map_zoom, map_draggable, cont_id) {
 	var center_split = map_center.split(',');
 	var map_zoom = parseInt(map_zoom,10);
 	if(!map_zoom) map_zoom = 13;
+
+	if(map_draggable == 'false')
+	{
+		map_draggable = false; 
+	}
+	else
+	{
+		map_draggable = true; 
+	}
 
 	var mapOption = {
 		zoom: map_zoom,
@@ -38,6 +47,7 @@ function getMapWidget(map_id, map_center, map_markers, map_zoom) {
 			style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
 			position: google.maps.ControlPosition.TOP_RIGHT
 		},
+		draggable: map_draggable,
 		panControl: false,
 		zoomControl: true,
 		zoomControlOptions: {
@@ -48,6 +58,7 @@ function getMapWidget(map_id, map_center, map_markers, map_zoom) {
 		streetViewControl: false
 	}
 	var map = new google.maps.Map(document.getElementById(map_id), mapOption);
+	oMap[cont_id] = map;
 
 	addMarker(map, map_markers);
 }

@@ -60,5 +60,26 @@
 				<description xml:lang="en">Map height without unit. Only numbers in pixel unit.</description>
 			</var>
 		</group>
+		<group>
+			<title xml:lang="ko">지도 조작</title>
+			<title xml:lang="en">Map Control</title>
+			<var id="map_draggable">
+				<type>select</type>
+				<name xml:lang="ko">드래그 조작</name>
+				<name xml:lang="en">Draggable</name>
+				<description xml:lang="ko">터치 환경 등 드래그 조작이 활성화 되어 있을 때, 사용성에 문제가 된다면 드래그 조작을 끌 수 있습니다.</description>
+				<description xml:lang="en">Touch interface, such as smart-phone, may be inhibitted by map dragging.</description>
+				<options default="true">
+					<value>true</value>
+					<name xml:lang="ko">드래그 가능</name>
+					<name xml:lang="en">Draggable</name>
+				</options>
+				<options>
+					<value>false</value>
+					<name xml:lang="ko">드래그 불가능</name>
+					<name xml:lang="en">Un-draggable</name>
+				</options>
+			</var>
+		</group>
 	</extra_vars>
 </widget>

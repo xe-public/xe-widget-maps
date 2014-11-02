@@ -26,29 +26,51 @@ function makeLocationArray(str_position) {
 	return arr_positons;
 }
 
-function getMapWidget(map_id, map_center, map_markers, p_map_zoom) {
+function getMapWidget(map_id, map_center, map_markers, p_map_zoom, map_draggable, cont_id) {
 	var center_split = map_center.split(',');
 	var map_zoom = parseInt(p_map_zoom,10) - 5;
 	if(!map_zoom) map_zoom = 10;
+
+	if(map_draggable == 'false')
+	{
+		map_draggable = false; 
+	}
+	else
+	{
+		map_draggable = true; 
+	}
 
 	var mapOption = {
 		zoom: map_zoom,
 		point: new nhn.api.map.LatLng(center_split[0], center_split[1]),
 		enableWheelZoom : true,
-		enableDragPan : true,
+		enableDragPan : map_draggable,
 		enableDblClickZoom : true,
 		mapMode : 0,
 		activateTrafficMap : false,
 		activateBicycleMap : false
 	}
-	var p_map = new nhn.api.map.Map(map_id, mapOption);
+	var map = new nhn.api.map.Map(map_id, mapOption);
+	oMap[cont_id] = map;
 
 	var zoomControl = new nhn.api.map.ZoomControl();
-	p_map.addControl(zoomControl);
+	map.addControl(zoomControl);
 	zoomControl.setPosition({ top : 10, left : 10 });
 	var mapTypeControl = new nhn.api.map.MapTypeBtn();
-	p_map.addControl(mapTypeControl);
+	map.addControl(mapTypeControl);
 	mapTypeControl.setPosition({ top : 10, right : 10 });
 
-	addMarker(p_map, map_markers);
+	addMarker(map, map_markers);
 }
+
+// 백분율 단위 가로 사이즈일 때, 모바일 화면 사이즈 변화나 화면 사이즈 변화 대응
+jQuery(window).on("resize", function(){
+	jQuery("div.maps_widget").each( function() {
+		var style = jQuery( this ).attr("style"); // setSize 후에 style 변조 방지
+		var new_width = jQuery( this ).width();
+		var new_height = jQuery( this ).height();
+		var cont_id = jQuery( this ).attr("data-maps-count");
+		oMap[cont_id].setSize(new nhn.api.map.Size(new_width, new_height));
+		jQuery( this ).attr("style", style);// setSize 후에 style 변조 방지
+	});
+});
