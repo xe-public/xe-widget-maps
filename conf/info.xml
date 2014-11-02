@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget version="0.2">
+	<title xml:lang="ko">지도 위젯</title>
+	<title xml:lang="en">Maps widget</title>
+	<description xml:lang="ko">지도 모듈에서 저장한 지도를 선택해서 출력할 수 있는 위젯입니다.</description>
+	<description xml:lang="en">This widget displays a map, created by Maps module.</description>
+	<version>1.0</version>
+	<date>2014-11-02</date>
+	<license>The MIT License (MIT)</license>
+
+	<author email_address="misol.kr@gmail.com" link="https://github.com/xe-public/xe-module-maps">
+		<name xml:lang="ko">김민수(misol)</name>
+		<name xml:lang="en">Kim, Min Soo(misol)</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">표시할 지도</title>
+			<title xml:lang="en">Select a map</title>
+
+			<var id="maps_srl" type="text">
+				<name xml:lang="ko">지도 일련번호</name>
+				<name xml:lang="en">Serial no. of the map</name>
+				<description xml:lang="ko">표시할 지도의 일련번호를 입력합니다. 지도의 일련번호는 지도 모듈의 '지도 목록' 탭 또는 '지도 편집' 화면에서 확인하실 수 있습니다.</description>
+				<description xml:lang="en">Serial number of the map to display. The serial number is on the 'Maps List' or 'Edit Map' page of the Maps module</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">지도 모양</title>
+			<title xml:lang="en">Shape</title>
+
+			<var id="map_width" default="320">
+				<type>text</type>
+				<name xml:lang="ko">지도 가로</name>
+				<name xml:lang="en">Map width</name>
+				<description xml:lang="ko">단위를 제외한 가로 길이를 지정합니다.</description>
+				<description xml:lang="en">the Map width without unit.</description>
+			</var>
+			<var id="map_width_unit">
+				<type>select</type>
+				<name xml:lang="ko">지도 가로 단위</name>
+				<name xml:lang="en">Map width unit</name>
+				<description xml:lang="ko">지도 가로 길이의 단위를 지정합니다.</description>
+				<description xml:lang="en">Unit of the map.</description>
+				<options default="true">
+					<value>px</value>
+					<name xml:lang="ko">픽셀(px)</name>
+					<name xml:lang="en">Pixel(px)</name>
+				</options>
+				<options>
+					<value>%</value>
+					<name xml:lang="ko">백분율(%)</name>
+					<name xml:lang="en">Percent(%)</name>
+				</options>
+			</var>
+			<var id="map_height" default="300">
+				<type>text</type>
+				<name xml:lang="ko">지도 세로</name>
+				<name xml:lang="en">Map height</name>
+				<description xml:lang="ko">단위를 제외한 세로 길이를 지정합니다. 숫자만 입력하며, 픽셀단위입니다.</description>
+				<description xml:lang="en">Map height without unit. Only numbers in pixel unit.</description>
+			</var>
+		</group>
+	</extra_vars>
+</widget>
