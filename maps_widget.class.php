@@ -7,8 +7,7 @@
  */
 class maps_widget extends WidgetHandler
 {
-	private $langtype = '';
-		//language setting
+	//language setting
 	private $xe_langtype = array(
 			'ko',
 			'en',
@@ -37,6 +36,23 @@ class maps_widget extends WidgetHandler
 		);
 
 	/**
+	 * @param array $microsoft_langtype Microsoft 언어 타입 모음 http://msdn.microsoft.com/en-us/library/gg427600.aspx
+	 */
+	protected $microsoft_langtype = array(
+			'ko-KR',
+			'en-US',
+			'zh-TW',
+			'zh-HK',
+			'ja-JP',
+			'es-ES',
+			'fr-FR',
+			'ru-RU',
+			'en-US', // MS does not not support
+			'en-US', // MS does not not support
+			'en-US' // MS does not not support
+		);
+
+	/**
 	 * @brief Widget execution
 	 *
 	 * Get extra_vars declared in ./widgets/widget/conf/info.xml as arguments
@@ -44,8 +60,8 @@ class maps_widget extends WidgetHandler
 	 */
 	function proc($widget_info)
 	{
+		Context::loadLang($this->widget_path.'lang');
 		Context::loadFile(array('./common/js/jquery.js', 'head', 'gte IE 9', -110000), true);
-		$this->langtype = str_replace($this->xe_langtype, $this->google_langtype, strtolower(Context::getLangType()));
 
 		// API 종류 정하기 다음/네이버/구글
 		$oMapsModel = getModel('maps');
@@ -55,6 +71,7 @@ class maps_widget extends WidgetHandler
 			return 'Error: No Maps Module';
 		}
 		Context::set('maps_api_type', $maps_config->maps_api_type);
+		Context::set('map_api_key', $maps_config->map_api_key);
 
 		$args = new stdClass();
 		$args->maps_srl = intval($widget_info->maps_srl);
@@ -128,11 +145,13 @@ class maps_widget extends WidgetHandler
 			}
 			elseif($maps_config->maps_api_type == 'microsoft')
 			{
-				$header_script .= '<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
+				$langtype = str_replace($this->xe_langtype, $this->microsoft_langtype, strtolower(Context::getLangType()));
+				$header_script .= '<script type="text/javascript" src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&amp;mkt=ngt,'.$langtype.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
 			}
 			else
 			{
-				$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$this->langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="이동"] {opacity: 0 !important;}div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:100%;}</style>'."\n";
+				$langtype = str_replace($this->xe_langtype, $this->google_langtype, strtolower(Context::getLangType()));
+				$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="이동"] {opacity: 0 !important;}div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:100%;}</style>'."\n";
 			}
 		}
 

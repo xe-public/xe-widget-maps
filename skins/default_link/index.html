@@ -1,0 +1,34 @@
+{$header_script}
+<load target="./css/style.css" />
+<!--@if($maps_api_type == 'daum')-->
+	<load target="./js/daum_maps.js" />
+<!--@elseif($maps_api_type == 'naver')-->
+	<load target="./js/naver_maps.js" />
+<!--@elseif($maps_api_type == 'microsoft')-->
+	<load target="./js/microsoft_maps.js" />
+<!--@else-->
+	<load target="./js/google_maps.js" />
+<!--@end-->
+<div style="display:block;height:{$map_height}px;">
+	<div id="maps_widget_{$widget_maps_count}" class="maps_widget" style="display:block;height:{$map_height-40}px; width:{$map_width}{$map_width_unit};" data-maps-count="{$widget_maps_count}">
+	</div>
+	<div class="maps_widget_button">
+	<!--@if($maps_api_type == 'daum')-->
+		<a target="_blank" href="http://map.daum.net/map/look?p={$map_center}">{$lang->maps_widget_link_map}</a>
+	<!--@elseif($maps_api_type == 'naver')-->
+		{@$map_center_arr = explode(",", $map_center)}
+		{@$nmap_zoom = $map_zoom-5}
+		<a target="_blank" href="http://maps.naver.com/?menu=location&amp;mapMode=0&amp;lat={$map_center_arr[0]}&amp;lng={$map_center_arr[1]}&amp;dlevel={$nmap_zoom}&amp;enc=b64">{$lang->maps_widget_link_map}</a>
+	<!--@elseif($maps_api_type == 'microsoft')-->
+		{@$bmap_center = str_replace(',','~',$map_center)}
+		<a target="_blank" href="https://www.bing.com/maps/?cp={$bmap_center}&amp;sty=r&amp;lvl={$map_zoom}">{$lang->maps_widget_link_map}</a>
+	<!--@else-->
+		<a target="_blank" href="https://www.google.co.kr/maps/@{$map_center},{$map_zoom}z">{$lang->maps_widget_link_map}</a>
+	<!--@end-->
+	</div>
+</div>
+<script>
+<!--@if($widget_maps_count == 1)-->	var oMap = new Array(), map_api_key = "{$map_api_key}";<!--@end-->
+	getMapWidget("maps_widget_{$widget_maps_count}", "{$map_center}", "{$map_markers}", "{$map_zoom}","{$map_draggable}",{$widget_maps_count});
+	oMap[{$widget_maps_count}];<!--// 지도 컨테이너 -->
+</script>

@@ -11,7 +11,7 @@
 <div id="maps_widget_{$widget_maps_count}" class="maps_widget" style="display:block;height:{$map_height}px; width:{$map_width}{$map_width_unit};" data-maps-count="{$widget_maps_count}">
 </div>
 <script>
-<!--@if($widget_maps_count == 1)-->	var oMap = new Array();<!--@end-->
+<!--@if($widget_maps_count == 1)-->	var oMap = new Array(), map_api_key = "{$map_api_key}";<!--@end-->
 	getMapWidget("maps_widget_{$widget_maps_count}", "{$map_center}", "{$map_markers}", "{$map_zoom}","{$map_draggable}",{$widget_maps_count});
 	oMap[{$widget_maps_count}];<!--// 지도 컨테이너 -->
 </script>
