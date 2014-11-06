@@ -4,11 +4,11 @@
 	<title xml:lang="en">Maps widget</title>
 	<description xml:lang="ko">지도 모듈에서 저장한 지도를 선택해서 출력할 수 있는 위젯입니다.</description>
 	<description xml:lang="en">This widget displays a map, created by Maps module.</description>
-	<version>1.0</version>
-	<date>2014-11-02</date>
+	<version>1.1</version>
+	<date>2014-11-06</date>
 	<license>The MIT License (MIT)</license>
 
-	<author email_address="misol.kr@gmail.com" link="https://github.com/xe-public/xe-module-maps">
+	<author email_address="misol.kr@gmail.com" link="https://github.com/xe-public/xe-widget-maps">
 		<name xml:lang="ko">김민수(misol)</name>
 		<name xml:lang="en">Kim, Min Soo(misol)</name>
 	</author>

@@ -162,5 +162,5 @@ class maps_widget extends WidgetHandler
 		return $oTemplate->compile($tpl_path, $tpl_file);
 	}
 }
-/* End of file language_select.class.php */
-/* Location: ./widgets/language_select/language_select.class.php */
+/* End of file maps_widget.class.php */
+/* Location: ./widgets/maps_widget/maps_widget.class.php */
