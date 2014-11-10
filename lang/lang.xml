@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="maps_widget_link_map">
+		<value xml:lang="ko"><![CDATA[지도 크게 보기]]></value>
+		<value xml:lang="en"><![CDATA[Show bigger map]]></value>
+	</item>
+</lang>
