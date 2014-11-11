@@ -1,4 +1,3 @@
-{$header_script}
 <load target="./css/style.css" />
 <!--@if($maps_api_type == 'daum')-->
 	<load target="./js/daum_maps.js" />
@@ -28,7 +27,16 @@
 	</div>
 </div>
 <script>
-<!--@if($widget_maps_count == 1)-->	var oMap = new Array(), map_api_key = "{$map_api_key}";<!--@end-->
-	getMapWidget("maps_widget_{$widget_maps_count}", "{$map_center}", "{$map_markers}", "{$map_zoom}","{$map_draggable}",{$widget_maps_count});
-	oMap[{$widget_maps_count}];<!--// 지도 컨테이너 -->
+	if(typeof(loadMapsAPI) == "undefined")
+	{
+		document.write(decodeURIComponent('{rawurlencode($header_script)}'));
+	}
+	var loadMapsAPI = true;
+	var oMap = new Array(), map_api_key = "{$map_api_key}";
+	jQuery(window).load(
+		function() {
+			getMapWidget("maps_widget_{$widget_maps_count}", "{$map_center}", "{$map_markers}", "{$map_zoom}","{$map_draggable}",{$widget_maps_count});
+			oMap[{$widget_maps_count}];
+		}
+	);<!--// 지도 컨테이너 -->
 </script>
