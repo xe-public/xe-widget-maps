@@ -124,35 +124,29 @@ class maps_widget extends WidgetHandler
 			Context::set('map_width_unit', 'px');
 		}
 
-		//한 페이지 내에 지도 수
-		$map_count = Context::get('widget_maps_count');
-		if(!$map_count) {
-			$map_count=1;
-		} else {
-			$map_count=$map_count+1;
-		}
-		Context::set('widget_maps_count' , $map_count);
+		// 지도마다 고유한 번호 매기기(지도를 세려고 했으나... 위젯 캐시를 통하면 무용지물 되는듯
+		Context::set('widget_maps_count' , mt_rand (1,32767));
 
 		$header_script = '';
-		if($map_count==1) {
-			if($maps_config->maps_api_type == 'daum')
-			{
-				$header_script .= '<script src="https://apis.daum.net/maps/maps3.js?apikey='.$maps_config->map_api_key.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
-			}
-			elseif($maps_config->maps_api_type == 'naver')
-			{
-				$header_script .= '<script src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&amp;key='.$maps_config->map_api_key.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
-			}
-			elseif($maps_config->maps_api_type == 'microsoft')
-			{
-				$langtype = str_replace($this->xe_langtype, $this->microsoft_langtype, strtolower(Context::getLangType()));
-				$header_script .= '<script type="text/javascript" src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&amp;mkt=ngt,'.$langtype.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
-			}
-			else
-			{
-				$langtype = str_replace($this->xe_langtype, $this->google_langtype, strtolower(Context::getLangType()));
-				$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="이동"] {opacity: 0 !important;}div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:100%;}</style>'."\n";
-			}
+		if($maps_config->maps_api_type == 'daum')
+		{
+			$header_script .= '<script src="https://apis.daum.net/maps/maps3.js?apikey='.$maps_config->map_api_key.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
+		}
+		elseif($maps_config->maps_api_type == 'naver')
+		{
+			$header_script .= '<script src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&amp;key='.$maps_config->map_api_key.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
+		}
+		elseif($maps_config->maps_api_type == 'microsoft')
+		{
+			$langtype = str_replace($this->xe_langtype, $this->microsoft_langtype, strtolower(Context::getLangType()));
+			$header_script .= '<script type="text/javascript" src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&amp;mkt=ngt,'.$langtype.'"></script><style type="text/css">div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
+			Context::set('maps_langtype',$langtype);
+		}
+		else
+		{
+			$langtype = str_replace($this->xe_langtype, $this->google_langtype, strtolower(Context::getLangType()));
+			$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="이동"] {opacity: 0 !important;}div.maps_widget img {max-width:none;}div.maps_widget>a>img {max-width:100%;}</style>'."\n";
+			Context::set('maps_langtype',$langtype);
 		}
 
 		Context::set('header_script' , $header_script);
