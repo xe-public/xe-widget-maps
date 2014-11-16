@@ -121,7 +121,7 @@ class maps_widget extends WidgetHandler
 		}
 		else
 		{
-			Context::set('map_width_unit', 'px');
+			Context::set('map_width_unit', '%');
 		}
 
 		// 지도마다 고유한 번호 매기기(지도를 세려고 했으나... 위젯 캐시를 통하면 무용지물 되는듯
