@@ -134,7 +134,7 @@ class maps_widget extends WidgetHandler
 		}
 		elseif($maps_config->maps_api_type == 'naver')
 		{
-			$header_script .= '<script src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&amp;key='.$maps_config->map_api_key.'"></script><style type="text/css">div.maps_widget img {max-width:none!important;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
+			$header_script .= '<script src="https://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&amp;key='.$maps_config->map_api_key.'"></script><style type="text/css">div.maps_widget img {max-width:none!important;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
 		}
 		elseif($maps_config->maps_api_type == 'microsoft')
 		{
