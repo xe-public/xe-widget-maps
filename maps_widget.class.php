@@ -19,7 +19,8 @@ class maps_widget extends WidgetHandler
 			'ru',
 			'vi',
 			'mn',
-			'tr'
+			'tr',
+			'ja'
 		);
 	private $google_langtype = array(
 			'ko',
@@ -32,24 +33,26 @@ class maps_widget extends WidgetHandler
 			'ru',
 			'vi',
 			'en', // google does not not support
-			'tr'
+			'tr',
+			'ja'
 		);
 
 	/**
-	 * @param array $microsoft_langtype Microsoft 언어 타입 모음 http://msdn.microsoft.com/en-us/library/gg427600.aspx
+	 * @param array $microsoft_langtype Microsoft 언어/지역 타입 https://msdn.microsoft.com/en-us/library/mt712553.aspx
 	 */
-	protected $microsoft_langtype = array(
-			'ko-KR',
-			'en-US',
-			'zh-TW',
-			'zh-HK',
-			'ja-JP',
-			'es-ES',
-			'fr-FR',
-			'ru-RU',
-			'en-US', // MS does not not support
-			'en-US', // MS does not not support
-			'en-US' // MS does not not support
+	private $ISO_3166_1_alpha_2 = array(
+			'KR',
+			'US',
+			'TW',
+			'CN',
+			'JP',
+			'ES',
+			'FR',
+			'RU',
+			'VN',
+			'MN',
+			'TR',
+			'JP'
 		);
 
 	/**
@@ -138,14 +141,14 @@ class maps_widget extends WidgetHandler
 		}
 		elseif($maps_config->maps_api_type == 'microsoft')
 		{
-			$langtype = str_replace($this->xe_langtype, $this->microsoft_langtype, strtolower(Context::getLangType()));
-			$header_script .= '<script type="text/javascript" src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&amp;mkt=ngt,'.$langtype.'"></script><style type="text/css">div.maps_widget img {max-width:none!important;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
+			$langtype = str_replace($this->xe_langtype, $this->ISO_3166_1_alpha_2, strtolower(Context::getLangType()));
+			$header_script .= '<script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?UR='.$langtype.'"></script><style type="text/css">div.maps_widget img {max-width:none!important;}div.maps_widget>a>img {max-width:none;}</style>'."\n";
 			Context::set('maps_langtype',$langtype);
 		}
 		else
 		{
 			$langtype = str_replace($this->xe_langtype, $this->google_langtype, strtolower(Context::getLangType()));
-			$header_script .= '<script src="https://maps-api-ssl.google.com/maps/api/js?sensor=false&amp;language='.$langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="이동"] {opacity: 0 !important;}div.maps_widget img {max-width:none!important;}div.maps_widget>a>img {max-width:100%;}</style>'."\n";
+			$header_script .= '<script src="https://maps.googleapis.com/maps/api/js?key=' . $maps_config->map_api_key . '&amp;language='.$langtype.'"></script><style type="text/css">.gmnoprint div[title^="Pan"],.gmnoprint div[title~="이동"] {opacity: 0 !important;}div.maps_widget img {max-width:none!important;}div.maps_widget>a>img {max-width:100%;}</style>'."\n";
 			Context::set('maps_langtype',$langtype);
 		}
 
